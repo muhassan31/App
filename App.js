@@ -9,17 +9,19 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-
-import GettingStarted from './src/screens/Onboarding/GettingStarted';
-import HowItWorks1 from './src/screens/Onboarding/HowItWorks1';
-import HowItWorks2 from './src/screens/Onboarding/HowItWorks2';
+import RootNavigator from './src/navigation/RootNavigator';
 import HowItWorks3 from './src/screens/Onboarding/HowItWorks3'
+
 function App() {
   return (
+    <SafeAreaView style={styles.container}>
     <View style={styles.container}>
-    <GettingStarted/>
-    {/* <HowItWorks1/> */}
+    
+    <RootNavigator />
+    
+    
     </View>
+    </SafeAreaView>
   );
 }
 

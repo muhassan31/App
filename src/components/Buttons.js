@@ -12,7 +12,7 @@ export function FilledButton({onPress, title, windowWidth , loading}) {
         buttonStyle={styles.buttonStyle}
         titleStyle={styles.filledTitleStyle}
         containerStyle={{...styles.containerStyle, width: windowWidth * 0.9}}
-        onPress={() => console.log('aye')}
+        onPress={onPress}
       />
     </View>
   );
@@ -28,7 +28,7 @@ export function HollowButton({onPress, title, windowWidth , loading}) {
         buttonStyle={styles.hollowButtonStyle}
         titleStyle={styles.hollowTitleStyle}
         containerStyle={{...styles.containerStyle, width: windowWidth * 0.9}}
-        onPress={() => console.log('aye')}
+        onPress={() => {onPress}}
       />
     </View>
   );

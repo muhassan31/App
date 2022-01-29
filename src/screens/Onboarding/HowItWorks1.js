@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions} from 'react-native';
+
 import {
   SafeAreaView,
   ScrollView,
@@ -8,6 +8,7 @@ import {
   Text,
   useColorScheme,
   View,
+  Dimensions,
 } from 'react-native';
 import {Button} from 'react-native-elements';
 import {HeadingText, SubheadingText} from '../../components/Texts';
@@ -16,9 +17,9 @@ import {FilledButton, HollowButton} from '../../components/Buttons';
 
 const windowWidth = Dimensions.get('window').width;
 
-export default function HowItWorks1() {
+export default function HowItWorks1({navigation}) {
   return (
-    <View style={styles.center}>
+    <View style={styles.container}>
       <View style={{...styles.genericView}}>
         <View style={{marginHorizontal: 16, marginTop: 36}}>
           <FakeIcon />
@@ -49,7 +50,7 @@ export default function HowItWorks1() {
           </Text>
         </View>
 
-        <FilledButton title="Start" windowWidth={windowWidth} />
+        <FilledButton title="Start" windowWidth={windowWidth} onPress={() => {navigation.push("HowItWorks2")}} />
       </View>
     </View>
   );
@@ -58,6 +59,7 @@ export default function HowItWorks1() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#ffffff'
   },
 
   center: {
