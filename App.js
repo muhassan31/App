@@ -1,36 +1,20 @@
-import React from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
 
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-import RootNavigator from './src/navigation/RootNavigator';
-import HowItWorks3 from './src/screens/Onboarding/HowItWorks3'
-
-function App() {
+export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
     <View style={styles.container}>
-    
-    <RootNavigator />
-    
-    
+      <Text>Matt is the CEO of Approachable</Text>
+      <StatusBar style="auto" />
     </View>
-    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-
   container: {
-    flex:1,
-
-  }
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
-
-export default App;
