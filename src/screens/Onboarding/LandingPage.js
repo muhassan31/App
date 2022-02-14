@@ -12,10 +12,7 @@ import AppLoading from 'expo-app-loading';
 export default function LandingPage({navigation}) {
   const windowWidth = Dimensions.get('window').width;
 
-  // let [fontsLoaded] = useFonts({
-  //   Poppins_700Normal,
-  //   Poppins_700Bold,
-  // });
+
   let [fontsLoaded] = useFonts({
     'Poppins_700Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
   });
