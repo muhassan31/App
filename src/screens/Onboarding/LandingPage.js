@@ -1,5 +1,5 @@
 import {View, Pressable, Text, StyleSheet} from 'react-native';
-import NormalButton from '../../components/Buttons';
+import {NormalButton , ButtonWithIcon} from '../../components/Buttons';
 import {Dimensions} from 'react-native';
 import Center from '../../components/Utility/Center';
 import HeadingStyle from '../../components/Utility/Styles/TextStyles';
@@ -50,7 +50,7 @@ export default function LandingPage({navigation}) {
             marginBottom: 20,
           }}>
           <View style={{width: windowWidth * 0.9, marginVertical: 8}}>
-            <NormalButton
+            <ButtonWithIcon
               text="Get Started"
               hollow
               onPress={() => navigation.navigate('HowItWorks')}
