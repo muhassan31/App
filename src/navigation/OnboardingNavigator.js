@@ -31,7 +31,7 @@ export default function OnboardingStack() {
           headerShown: false,
         }}
       />
-         <Onboarding.Screen
+      <Onboarding.Screen
         name="Interests"
         component={Interests}
         options={{

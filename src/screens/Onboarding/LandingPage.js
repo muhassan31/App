@@ -1,5 +1,5 @@
 import {View, Pressable, Text, StyleSheet} from 'react-native';
-import {NormalButton , ButtonWithIcon} from '../../components/Buttons';
+import {NormalButton, ButtonWithIcon} from '../../components/Buttons';
 import {Dimensions} from 'react-native';
 import Center from '../../components/Utility/Center';
 import HeadingStyle from '../../components/Utility/Styles/TextStyles';
@@ -12,15 +12,15 @@ import AppLoading from 'expo-app-loading';
 export default function LandingPage({navigation}) {
   const windowWidth = Dimensions.get('window').width;
 
-
   let [fontsLoaded] = useFonts({
-    'Poppins_700Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
+    Poppins_700Regular: require('../../assets/fonts/Poppins-Regular.ttf'),
   });
-  console.log(fontsLoaded , "fonts loaded");
+  console.log(fontsLoaded, 'fonts loaded');
   if (!fontsLoaded) {
-    
     return (
-      <View><Text> Loading fonts...</Text></View>
+      <View>
+        <Text> Loading fonts...</Text>
+      </View>
     );
   } else {
     return (
@@ -32,8 +32,6 @@ export default function LandingPage({navigation}) {
               ...HeadingStyle,
               fontFamily: 'Poppins_700Bold',
               fontWeight: '700',
-              
-              
             }}>
             Approachable
           </Text>
@@ -67,6 +65,8 @@ export default function LandingPage({navigation}) {
     );
   }
 }
+
+// choke
 
 const styles = StyleSheet.create({
   container: {
