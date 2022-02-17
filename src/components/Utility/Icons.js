@@ -17,13 +17,29 @@ export function GoogleIcon() {
   );
 }
 
+export function AppleIcon() {
+  return (
+    <View
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '24',
+        height: '24',
+      }}>
+      <Image
+        source={require('../../assets/images/assets/apple.png')}
+        style={{width: 24, height: 24}}
+      />
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-  });
-  
+  container: {
+    flex: 1,
+  },
+});
+
 // function GenericIcon({imageURL, width, height}) {
 //   return (
 //     <View
@@ -37,4 +53,3 @@ const styles = StyleSheet.create({
 //     </View>
 //   );
 // }
-

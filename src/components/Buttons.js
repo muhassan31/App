@@ -8,7 +8,7 @@ import {
   P,
 } from '@expo-google-fonts/poppins';
 import {SocialIcon} from 'react-native-elements';
-import {GoogleIcon} from './Utility/Icons';
+import {GoogleIcon , AppleIcon} from './Utility/Icons';
 
 export function NormalButton({text, hollow, moreStyles, onPress, inActive}) {
   let [fontsLoaded] = useFonts({
@@ -59,7 +59,8 @@ export function GoogleButtonWithIcon({onPress}) {
     <TouchableOpacity onPress={onPress}>
       <View style={styles.GoogleButton}>
         <GoogleIcon />
-        <Text
+  
+      <Text
           style={{
             marginLeft: 10,
             color: '#757575',
@@ -67,15 +68,38 @@ export function GoogleButtonWithIcon({onPress}) {
             fontWeight: '500',
             fontSize: 16,
             lineHeight: 20,
+            
           }}>
-          {' '}
-          Sign in with Google
+         
+          Continue with Google
         </Text>
       </View>
     </TouchableOpacity>
   );
 }
 
+export function AppleButtonWithIcon({onPress}) {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <View style={{...styles.GoogleButton , backgroundColor:'black'}}>
+        <AppleIcon/>
+  
+      <Text
+          style={{
+            marginLeft: 10,
+            color: 'white',
+            fontFamily: 'Poppins_700Normal',
+            fontWeight: '500',
+            fontSize: 16,
+            lineHeight: 20,
+          }}>
+          {' '}
+          Continue with Apple
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+}
 const styles = StyleSheet.create({
   GoogleButton: {
     flexDirection: 'row',
@@ -85,6 +109,7 @@ const styles = StyleSheet.create({
     height: 48,
     borderRadius: 12,
     borderWidth: 1,
+    
     borderColor: '#ECEEF2',
   },
 
