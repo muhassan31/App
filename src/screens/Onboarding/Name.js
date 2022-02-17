@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, TextInput} from 'react-native';
-import NormalButton from '../../components/Buttons';
+import {NormalButton} from '../../components/Buttons';
 import AppLoading from 'expo-app-loading';
 import {
   useFonts,

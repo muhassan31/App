@@ -2,6 +2,7 @@
   "expo": {
     "name": "ApproachableNative",
     "slug": "ApproachableNative",
+    "owner": "ebukaegb",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

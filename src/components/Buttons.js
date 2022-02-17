@@ -8,6 +8,7 @@ import {
   P,
 } from '@expo-google-fonts/poppins';
 import {SocialIcon} from 'react-native-elements';
+import {GoogleIcon} from './Utility/Icons';
 
 export function NormalButton({text, hollow, moreStyles, onPress, inActive}) {
   let [fontsLoaded] = useFonts({
@@ -24,7 +25,9 @@ export function NormalButton({text, hollow, moreStyles, onPress, inActive}) {
         }}
         onPress={onPress}>
         <Text
-          style={{...styles.textInactive, fontFamily: 'Poppins_500Regular'}}>
+          style={{...styles.textInactive, 
+          //fontFamily: 'Poppins_500Regular'
+          }}>
           {text}
         </Text>
       </TouchableOpacity>
@@ -51,16 +54,40 @@ export function NormalButton({text, hollow, moreStyles, onPress, inActive}) {
   }
 }
 
-export function ButtonWithIcon() {
+export function GoogleButtonWithIcon({onPress}) {
   return (
-    <TouchableOpacity>
-      <SocialIcon type="google-plus-official" />
-      <SocialIcon title="Some Twitter Message" button type="google-plus-official" />
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.GoogleButton}>
+        <GoogleIcon />
+        <Text
+          style={{
+            marginLeft: 10,
+            color: '#757575',
+            fontFamily: 'Poppins_700Normal',
+            fontWeight: '500',
+            fontSize: 16,
+            lineHeight: 20,
+          }}>
+          {' '}
+          Sign in with Google
+        </Text>
+      </View>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
+  GoogleButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 5,
+    height: 48,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#ECEEF2',
+  },
+
   container: {
     justifyContent: 'center',
     alignItems: 'center',

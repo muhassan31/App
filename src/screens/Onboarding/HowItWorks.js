@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet} from 'react-native';
-import NormalButton from '../../components/Buttons';
+import {NormalButton} from '../../components/Buttons';
 import HeadingStyle from '../../components/Utility/Styles/TextStyles';
 import {Dimensions} from 'react-native';
 import AppLoading from 'expo-app-loading';
@@ -11,11 +11,17 @@ import {
 
 const windowWidth = Dimensions.get('window').width;
 export default function HowItWorks({navigation}) {
-  let [fontsLoaded] = useFonts({
-    Poppins_400Regular,
-    Poppins_700Bold,
-  });
-  console.log('fonts loaded', fontsLoaded);
+  // let [fontsLoaded] = useFonts({
+  //   'Poppins_700Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
+  // });
+  // console.log('fonts loaded', fontsLoaded);
+  // if (!fontsLoaded){
+  //   return (
+  //     <View>
+  //       <Text> Loading fonts...</Text>
+  //     </View>
+  //   );
+  // }
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
@@ -43,7 +49,11 @@ export default function HowItWorks({navigation}) {
           sint.Velit officia consequat duis enim velit mollit.Exercitation
           veniam conseq
         </Text>
-        <NormalButton text="Next" hollow={true} onPress = { () => navigation.navigate('Name') } />
+        <NormalButton
+          text="Sign in with exsisting account"
+          hollow={false}
+          onPress={() => navigation.navigate('Name')}
+        />
       </View>
     </View>
   );

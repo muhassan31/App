@@ -1,71 +1,70 @@
 import {View, Pressable, Text, StyleSheet} from 'react-native';
-import {NormalButton , ButtonWithIcon} from '../../components/Buttons';
+import {NormalButton, GoogleButtonWithIcon} from '../../components/Buttons';
 import {Dimensions} from 'react-native';
 import Center from '../../components/Utility/Center';
 import HeadingStyle from '../../components/Utility/Styles/TextStyles';
-import {
-  useFonts,
-  Poppins_700Normal,
-  Poppins_700Bold,
-} from '@expo-google-fonts/poppins';
-import AppLoading from 'expo-app-loading';
+// import {
+//   useFonts,
+//   Poppins_700Normal,
+//   Poppins_700Bold,
+// } from '@expo-google-fonts/poppins';
+// import AppLoading from 'expo-app-loading';
+// import * as Font from 'expo-font';
+
 export default function LandingPage({navigation}) {
   const windowWidth = Dimensions.get('window').width;
 
-
-  let [fontsLoaded] = useFonts({
-    'Poppins_700Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-  });
-  console.log(fontsLoaded , "fonts loaded");
-  if (!fontsLoaded) {
-    
-    return (
-      <View><Text> Loading fonts...</Text></View>
-    );
-  } else {
-    return (
+  // let [fontsLoaded, error] = useFonts({
+  //   Poppins_700Regular: require('../../assets/fonts/Poppins-Regular.ttf'),
+  // });
+  // console.log(fontsLoaded, 'fonts loaded');
+  // if (!fontsLoaded) {
+  //   return (
+  //     <View>
+  //       <Text> Loading fonts...</Text>
+  //     </View>
+  //   );
+  // } else {
+  return (
+    <View style={styles.container}>
       <View style={styles.container}>
-        <View style={styles.container}>
-          <Center />
-          <Text
-            style={{
-              ...HeadingStyle,
-              fontFamily: 'Poppins_700Bold',
-              fontWeight: '700',
-              
-              
-            }}>
-            Approachable
-          </Text>
-        </View>
-        <View
+        <Center />
+        <Text
           style={{
-            ...styles.container,
-            marginHorizontal: 16,
-
-            width: windowWidth * 0.9,
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            // marginLeft: 30,
-            marginBottom: 20,
+            ...HeadingStyle,
+            // fontFamily: 'Poppins_700Bold',
+            fontWeight: '700',
           }}>
-          <View style={{width: windowWidth * 0.9, marginVertical: 8}}>
-            <ButtonWithIcon
-              text="Get Started"
-              hollow
-              onPress={() => navigation.navigate('HowItWorks')}
-            />
-          </View>
-          <View style={{width: windowWidth * 0.9, marginVertical: 8}}>
-            <NormalButton
+          Approachable
+        </Text>
+      </View>
+      <View
+        style={{
+          ...styles.container,
+          marginHorizontal: 16,
+
+          width: windowWidth * 0.9,
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+          // marginLeft: 30,
+          marginBottom: 20,
+        }}>
+        <View style={{width: windowWidth * 0.9, marginVertical: 8}}>
+          <GoogleButtonWithIcon
+            onPress={() => navigation.navigate('HowItWorks')}
+          />
+        </View>
+        <View style={{width: windowWidth * 0.9, marginVertical: 8}}>
+          <NormalButton
               text="Sign in with exsisting account"
               hollow={false}
+              onPress={() => navigation.navigate('HowItWorks')}
             />
-          </View>
         </View>
       </View>
-    );
-  }
+    </View>
+  );
+  //}
 }
 
 const styles = StyleSheet.create({
