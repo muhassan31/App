@@ -3,6 +3,7 @@ import LandingPage from '../screens/Onboarding/LandingPage';
 import HowItWorks from '../screens/Onboarding/HowItWorks';
 import Name from '../screens/Onboarding/Name';
 import Interests from '../screens/Onboarding/Interests';
+
 const Onboarding = createNativeStackNavigator();
 
 export default function OnboardingStack() {
