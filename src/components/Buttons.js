@@ -9,7 +9,7 @@ import {
 } from '@expo-google-fonts/poppins';
 import {SocialIcon} from 'react-native-elements';
 
-export function NormalButton({text, hollow, moreStyles, onPress, inActive}) {
+function NormalButton({text, hollow, moreStyles, onPress, inActive}) {
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_500Regular,
@@ -51,7 +51,7 @@ export function NormalButton({text, hollow, moreStyles, onPress, inActive}) {
   }
 }
 
-export function ButtonWithIcon(props) {
+function ButtonWithIcon(props) {
   return (
     <TouchableOpacity>
       <SocialIcon type="google-plus-official" />
@@ -103,3 +103,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins_500Regular',
   },
 });
+
+module.exports = {
+  ButtonWithIcon,
+  NormalButton,
+};

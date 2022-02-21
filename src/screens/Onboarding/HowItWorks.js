@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet} from 'react-native';
-import NormalButton from '../../components/Buttons';
+import {NormalButton} from '../../components/Buttons';
 import HeadingStyle from '../../components/Utility/Styles/TextStyles';
 import {Dimensions} from 'react-native';
 import AppLoading from 'expo-app-loading';
