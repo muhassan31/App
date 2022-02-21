@@ -3,7 +3,9 @@ import {TouchableOpacity, StyleSheet, View, Text} from 'react-native';
 
 const EmekaButton = props => {
   return (
-    <TouchableOpacity style={{...styles.buttonContainer, ...props.styles}}>
+    <TouchableOpacity
+      onPress={props.onSelect}
+      style={{...styles.buttonContainer, ...props.styles}}>
       <Text style={styles.buttonStyle}>{props.title}</Text>
     </TouchableOpacity>
   );
