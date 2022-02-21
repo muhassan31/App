@@ -11,7 +11,7 @@ import {
 import AppLoading from 'expo-app-loading';
 import EmekaButton from '../../components/EmekaButton';
 
-export default function LandingPage(props) {
+export default function LandingPage({navigation}) {
   const windowWidth = Dimensions.get('window').width;
 
   let [fontsLoaded] = useFonts({
@@ -60,9 +60,7 @@ export default function LandingPage(props) {
             {/* <NormalButton text="Sign in with Apple" hollow={false} /> */}
             <EmekaButton
               title="Sign in with Apple"
-              onSelect={() => {
-                props.navigation.push('HowItWorks');
-              }}
+              onSelect={() => navigation.navigate('HowItWorks')}
             />
           </View>
         </View>

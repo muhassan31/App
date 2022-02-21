@@ -51,11 +51,15 @@ export function NormalButton({text, hollow, moreStyles, onPress, inActive}) {
   }
 }
 
-export function ButtonWithIcon() {
+export function ButtonWithIcon(props) {
   return (
     <TouchableOpacity>
       <SocialIcon type="google-plus-official" />
-      <SocialIcon title="Some Twitter Message" button type="google-plus-official" />
+      <SocialIcon
+        title="Some Twitter Message"
+        button
+        type="google-plus-official"
+      />
     </TouchableOpacity>
   );
 }

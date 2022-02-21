@@ -10,7 +10,8 @@ import {
 } from '@expo-google-fonts/poppins';
 
 const windowWidth = Dimensions.get('window').width;
-export default function HowItWorks({navigation}) {
+
+const HowItWorks = ({navigation}) => {
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_700Bold,
@@ -43,11 +44,15 @@ export default function HowItWorks({navigation}) {
           sint.Velit officia consequat duis enim velit mollit.Exercitation
           veniam conseq
         </Text>
-        <NormalButton text="Next" hollow={true} onPress = { () => navigation.navigate('Name') } />
+        <NormalButton
+          text="Next"
+          hollow={true}
+          onPress={() => navigation.navigate('Name')}
+        />
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -65,3 +70,5 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
 });
+
+export default HowItWorks;
