@@ -3,6 +3,7 @@ import LandingPage from '../screens/Onboarding/LandingPage';
 import HowItWorks from '../screens/Onboarding/HowItWorks';
 import Name from '../screens/Onboarding/Name';
 import Interests from '../screens/Onboarding/Interests';
+import Sucess from '../screens/Onboarding/Sucess';
 import {View, Text} from 'react-native';
 const Onboarding = createNativeStackNavigator();
 
@@ -35,6 +36,13 @@ export default function OnboardingStack() {
       <Onboarding.Screen
         name="Interests"
         component={Interests}
+        options={{
+          headerShown: false,
+        }}
+      />
+           <Onboarding.Screen
+        name="Sucess"
+        component={Sucess}
         options={{
           headerShown: false,
         }}

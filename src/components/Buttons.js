@@ -8,7 +8,8 @@ import {
   P,
 } from '@expo-google-fonts/poppins';
 import {SocialIcon} from 'react-native-elements';
-import {GoogleIcon , AppleIcon} from './Utility/Icons';
+import {GoogleIcon, AppleIcon} from './Utility/Icons';
+import {RegularText, SmallerText} from './Texts';
 
 export function NormalButton({text, hollow, moreStyles, onPress, inActive}) {
   let [fontsLoaded] = useFonts({
@@ -26,8 +27,9 @@ export function NormalButton({text, hollow, moreStyles, onPress, inActive}) {
         }}
         onPress={onPress}>
         <Text
-          style={{...styles.textInactive, 
-          //fontFamily: 'Poppins_500Regular'
+          style={{
+            ...styles.textInactive,
+            //fontFamily: 'Poppins_500Regular'
           }}>
           {text}
         </Text>
@@ -56,13 +58,18 @@ export function NormalButton({text, hollow, moreStyles, onPress, inActive}) {
   }
 }
 
-export function GoogleButtonWithIcon({onPress , position}) {
+export function GoogleButtonWithIcon({onPress, position}) {
+  let [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+    Poppins_500Regular,
+    Poppins_700Normal,
+  });
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.GoogleButton}>
         <GoogleIcon />
-  
-      <Text
+
+        <Text
           style={{
             marginLeft: 10,
             color: '#757575',
@@ -70,9 +77,7 @@ export function GoogleButtonWithIcon({onPress , position}) {
             fontWeight: '500',
             fontSize: 16,
             lineHeight: 20,
-            
           }}>
-         
           Continue with Google
         </Text>
       </View>
@@ -81,12 +86,17 @@ export function GoogleButtonWithIcon({onPress , position}) {
 }
 
 export function AppleButtonWithIcon({onPress}) {
+  let [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+    Poppins_500Regular,
+    Poppins_700Normal,
+  });
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={{...styles.GoogleButton , backgroundColor:'black'}}>
-        <AppleIcon/>
-  
-      <Text
+      <View style={{...styles.GoogleButton, backgroundColor: 'black'}}>
+        <AppleIcon />
+
+        <Text
           style={{
             marginLeft: 10,
             color: 'white',
@@ -111,7 +121,7 @@ const styles = StyleSheet.create({
     height: 48,
     borderRadius: 12,
     borderWidth: 1,
-    
+
     borderColor: '#ECEEF2',
   },
 

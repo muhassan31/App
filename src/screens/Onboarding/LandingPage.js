@@ -5,20 +5,14 @@ import {
   AppleButtonWithIcon,
 } from '../../components/Buttons';
 import {Dimensions} from 'react-native';
-import {useState , useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import Center from '../../components/Utility/Center';
 import HeadingStyle from '../../components/Utility/Styles/TextStyles';
 import {Platform} from 'react-native';
-// import {
-//   useFonts,
-//   Poppins_700Normal,
-//   Poppins_700Bold,
-// } from '@expo-google-fonts/poppins';
-// import AppLoading from 'expo-app-loading';
-// import * as Font from 'expo-font';
 
 import * as Google from 'expo-google-app-auth';
 import * as GoogleSignIn from 'expo-google-sign-in';
+import {HeaderText} from '../../components/Texts';
 export default function LandingPage({navigation}) {
   const windowWidth = Dimensions.get('window').width;
   const [googleSubmitting, setGoogleSubmitting] = useState(false);
@@ -62,9 +56,9 @@ export default function LandingPage({navigation}) {
         const {type, user} = result;
         if (type === 'success') {
           console.log('result', result);
-          const {familyName , givenName} = user;
+          const {familyName, givenName} = user;
           setTimeout(() =>
-            navigation.navigate('Name', { familyName , givenName }),
+            navigation.navigate('Name', {familyName, givenName}),
           );
 
           return result.accessToken;
@@ -79,21 +73,12 @@ export default function LandingPage({navigation}) {
       });
   };
 
-
-
-
   return (
     <View style={styles.container}>
       <View style={styles.container}>
         <Center />
-        <Text
-          style={{
-            ...HeadingStyle,
-            // fontFamily: 'Poppins_700Bold',
-            fontWeight: '700',
-          }}>
-          Approachable
-        </Text>
+
+        <HeaderText content="Approachable" />
       </View>
       <View
         style={{

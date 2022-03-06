@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
+  ScrollView,
 } from 'react-native';
 import {NormalButton} from '../../components/Buttons';
 import Center from '../../components/Utility/Center';
@@ -17,19 +18,18 @@ import CategoryItem from '../../components/CategoryItem';
 import {CategorieContext} from '../..//context/CategorieContext';
 export default function Interests({navigation}) {
   const CategorieArr = [
-    ' Movie',
-    'Art',
-    'Travel',
+    'Self development',
+    'Creativity',
+    'Music',
     'Sports',
     ' Games',
-    'Love',
-    'Cheese',
+    'Food',
+    'Photography',
     'Dancing',
     'Lofi Music',
     'Pizza',
     'Coding',
     'Coffee',
-
   ];
   const [categories, setCategories] = useContext(CategorieContext);
 
@@ -63,7 +63,6 @@ export default function Interests({navigation}) {
           marginVertical: 10,
           flex: 0.2,
         }}>
-        <Text> {categories}</Text>
         <HeaderText content="What do you like?" />
         <SmallerText content="Select below to help us find the people and hangouts for you" />
       </View>
@@ -79,20 +78,24 @@ export default function Interests({navigation}) {
           justifyContent: 'flex-end',
         }}>
         <View style={{flexWrap: 'wrap', flexDirection: 'row'}}>
-          {CategorieArr.map((person, index) => (
-            <CategoryItem
-              content={person}
-              // onPress={() => handlePressCategories(person)}
-            />
-          ))}
+          <ScrollView>
+          <View style={{flexWrap: 'wrap', flexDirection: 'row'}}>
+            {CategorieArr.map((person, index) => (
+              <CategoryItem
+                content={person}
+                // onPress={() => handlePressCategories(person)}
+              />
+            ))}
+            </View>
+          </ScrollView>
 
           <NormalButton
             text="Next"
             onPress={() =>
-              buttonActive ? navigation.navigate('Interests') : null
+              buttonActive ? navigation.navigate('Sucess') : null
             }
             inActive={buttonActive}
-            moreStyles={{marginTop: 24}}
+            moreStyles={{marginTop: 40}}
           />
         </View>
       </View>
