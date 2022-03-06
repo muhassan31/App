@@ -2,22 +2,20 @@ import React, {useState , useEffect} from 'react';
 import {View, Text, StyleSheet, TextInput} from 'react-native';
 import {NormalButton} from '../../components/Buttons';
 import AppLoading from 'expo-app-loading';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   useFonts,
   Poppins_400Regular,
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
+
 export default function Name({route ,navigation}) {
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_700Bold,
   });
-  let  { familyName , givenName } = route.params
-
-  console.log(familyName , givenName , 'params') // tells me how many renders i am having.. fix this later with useMemo
-
- 
-
+  let  { result, familyName , givenName } = route.params
+// tells me how many renders i am having.. fix this later with useMemo
   const [firstname, setFirstName] = useState(givenName);
   const [lastName, setLastName] = useState(familyName);
   const [buttonActive, setButtonActive] = useState(false);
@@ -77,7 +75,7 @@ export default function Name({route ,navigation}) {
         }}>
         <NormalButton
           text="Next"
-          onPress={() =>  buttonActive ? navigation.navigate('Interests') : null}
+          onPress={() =>  buttonActive ? navigation.navigate('Interests' ,  {result , familyName, givenName}) : null}
           inActive={buttonActive}
         />
       </View>

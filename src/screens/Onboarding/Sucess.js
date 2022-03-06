@@ -1,18 +1,27 @@
-import React, { BackHandler } from 'react';
+import React, {useContext} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {HeaderText, RegularText, SmallerText} from '../../components/Texts';
 
 import SucessLogo from '../../assets/images/assets/SucessLogo.svg';
 import {NormalButton} from '../../components/Buttons';
+import {UserContext} from '../..//context/UserContext';
 
 export default function Sucess() {
-
-    const buttonActive = true
+  const [user, setUser] = useContext(UserContext);
+  console.log(user);
+  const buttonActive = true;
   return (
     <View style={styles.container}>
-      <View style={{marginHorizontal: 18, marginTop: 90}}>
+      <View style={{marginHorizontal: 18, marginTop: 40}}>
+        {/* <HeaderText content={user.givenName + " is now Approached!"} /> */}
         <HeaderText content="Approached!" />
-        <SmallerText content="Planet Approachable is excited to have you onboard. We will let you know once your pod is ready. Stay tuned by enabling notifications." />
+        <SmallerText
+          content={
+            'Planet Approachable is excited to have you onboard, ' +
+            user.givenName +
+            '. We will let you know once your pod is ready. Stay tuned by enabling notifications.'
+          }
+        />
         <View>
           <SmallerText content="Already done? Sit tight and we will approach you! " />
         </View>
@@ -29,7 +38,7 @@ export default function Sucess() {
         <View style={{marginTop: 100}}>
           <NormalButton
             text="OK"
-            onPress={() => (buttonActive ? BackHandler.exitApp() : null)} //clode app
+            onPress={() => (buttonActive ? null : null)} //clode app
             inActive={true}
             hollow
           />

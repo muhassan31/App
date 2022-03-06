@@ -6,8 +6,8 @@ export function GoogleIcon() {
       style={{
         alignItems: 'center',
         justifyContent: 'center',
-        width: '24',
-        height: '24',
+        width: 24,
+        height: 24,
       }}>
       <Image
         source={require('../../assets/images/assets/google.png')}

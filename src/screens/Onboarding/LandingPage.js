@@ -15,18 +15,7 @@ import * as GoogleSignIn from 'expo-google-sign-in';
 import {HeaderText} from '../../components/Texts';
 export default function LandingPage({navigation}) {
   const windowWidth = Dimensions.get('window').width;
-  const [googleSubmitting, setGoogleSubmitting] = useState(false);
-  // let [fontsLoaded, error] = useFonts({
-  //   Poppins_700Regular: require('../../assets/fonts/Poppins-Regular.ttf'),
-  // });
-  // console.log(fontsLoaded, 'fonts loaded');
-  // if (!fontsLoaded) {
-  //   return (
-  //     <View>
-  //       <Text> Loading fonts...</Text>
-  //     </View>
-  //   );
-  // } else {
+  const [googleSubmitting, setGoogleSubmitting] = useState(false); // use this for loading indicator
   const AndriodClientID =
     '724006010963-9p0s32i5i7httcsnqfdls7ffnc6vkkvl.apps.googleusercontent.com';
   const IOSClientID =
@@ -58,7 +47,7 @@ export default function LandingPage({navigation}) {
           console.log('result', result);
           const {familyName, givenName} = user;
           setTimeout(() =>
-            navigation.navigate('Name', {familyName, givenName}),
+            navigation.navigate('Name', {result , familyName, givenName}),
           );
 
           return result.accessToken;

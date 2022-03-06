@@ -12,11 +12,31 @@ import Center from '../../components/Utility/Center';
 import {HeaderText, RegularText, SmallerText} from '../../components/Texts';
 import LandingPage from '../Onboarding/LandingPage';
 import HowItWorks from './HowItWorks';
-import Animated from 'react-native-reanimated';
+import Animated, {set} from 'react-native-reanimated';
 import {useState, useEffect, useContext} from 'react';
 import CategoryItem from '../../components/CategoryItem';
 import {CategorieContext} from '../..//context/CategorieContext';
-export default function Interests({navigation}) {
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {UserContext, UserProvider} from '../../context/UserContext';
+
+export default function Interests({navigation, route}) {
+  var [user, setUser] = useContext(UserContext);
+  let {result} = route.params;
+
+  const handleSavingUser = async () => {
+    console.log('saving user...');
+    
+    AsyncStorage.setItem('user', JSON.stringify(result.user))
+      .then(() => {
+        console.log('user saved');
+        setUser(result.user);
+      })
+      .catch(err => {
+        //handle error with UI error
+        console.log('error saving user', err);
+        setUser(null);
+      });
+  };
   const CategorieArr = [
     'Self development',
     'Creativity',
@@ -79,20 +99,20 @@ export default function Interests({navigation}) {
         }}>
         <View style={{flexWrap: 'wrap', flexDirection: 'row'}}>
           <ScrollView>
-          <View style={{flexWrap: 'wrap', flexDirection: 'row'}}>
-            {CategorieArr.map((person, index) => (
-              <CategoryItem
-                content={person}
-                // onPress={() => handlePressCategories(person)}
-              />
-            ))}
+            <View style={{flexWrap: 'wrap', flexDirection: 'row'}}>
+              {CategorieArr.map((person, index) => (
+                <CategoryItem
+                  content={person}
+                  // onPress={() => handlePressCategories(person)}
+                />
+              ))}
             </View>
           </ScrollView>
 
           <NormalButton
             text="Next"
-            onPress={() =>
-              buttonActive ? navigation.navigate('Sucess') : null
+            onPress={
+              () => (buttonActive ? handleSavingUser() : null) //navigation.navigate('Sucess')
             }
             inActive={buttonActive}
             moreStyles={{marginTop: 40}}
@@ -100,44 +120,6 @@ export default function Interests({navigation}) {
         </View>
       </View>
     </View>
-  );
-}
-import {NavigationContainer} from '@react-navigation/native';
-
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-
-const Tab = createMaterialTopTabNavigator();
-
-function MyTabs() {
-  return (
-    <NavigationContainer>
-      <Tab.Navigator
-        initialLayout={{width: Dimensions.get('window').width}}
-        tabBarOptions={{
-          activeTintColor: '#44BFBA',
-          labelStyle: {
-            fontSize: 14,
-          },
-          inactiveTintColor: 'grey',
-          indicatorStyle: {
-            backgroundColor: '#44BFBA',
-          },
-          style: {
-            alignSelf: 'center',
-            width: '100%',
-            borderRadius: 0,
-            borderColor: 'blue',
-            backgroundColor: 'white',
-            fontSize: 300,
-          },
-          tabStyle: {
-            borderRadius: 0,
-          },
-        }}>
-        <Tab.Screen name="LandingPage" component={LandingPage} />
-        <Tab.Screen name="HowItWorks" component={HowItWorks} />
-      </Tab.Navigator>
-    </NavigationContainer>
   );
 }
 

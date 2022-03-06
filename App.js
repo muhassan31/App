@@ -14,27 +14,7 @@ import {useState, useContext} from 'react';
 import {UserContext, UserProvider} from './src/context/UserContext';
 
 export default function App() {
-  const [appReady, setAppReady] = useState(false);
-  const value = useContext(UserContext);
-  console.log("user conetxt value",value);
-
-  const checkUserCredentials = () => {
-    AsyncStorage.getItem('currentUser')
-      .then(
-        (user = user => {
-          if (user != null) {
-            console.log(user);
-            setUser(user);
-          } else {
-            console.log('no user');
-            setUser(null);
-          }
-        }),
-      )
-      .catch(err => {
-        console.error(err);
-      });
-  };
+  
   return (
     <UserProvider>
       <CategoryProvider>
@@ -47,7 +27,6 @@ export default function App() {
         </SafeAreaProvider>
       </CategoryProvider>
     </UserProvider>
-   
   );
 }
 

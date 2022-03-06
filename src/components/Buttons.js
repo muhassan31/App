@@ -5,7 +5,6 @@ import {
   Poppins_500Regular,
   Poppins_700Bold,
   Poppins_700Normal,
-  P,
 } from '@expo-google-fonts/poppins';
 import {SocialIcon} from 'react-native-elements';
 import {GoogleIcon, AppleIcon} from './Utility/Icons';

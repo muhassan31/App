@@ -40,7 +40,7 @@ export default function OnboardingStack() {
           headerShown: false,
         }}
       />
-           <Onboarding.Screen
+      <Onboarding.Screen
         name="Sucess"
         component={Sucess}
         options={{
