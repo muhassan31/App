@@ -22,6 +22,7 @@ export function NormalButton({text, hollow, moreStyles, onPress, inActive}) {
       <TouchableOpacity
         style={{
           ...styles.containerInactive,
+          ...moreStyles,
         }}
         onPress={onPress}>
         <Text
@@ -39,6 +40,7 @@ export function NormalButton({text, hollow, moreStyles, onPress, inActive}) {
           ...styles.container,
           backgroundColor: hollow ? '#44BFBA' : 'white',
           borderColor: hollow ? 'white' : '#44BFBA',
+          ...moreStyles,
         }}
         onPress={onPress}>
         <Text
@@ -54,7 +56,7 @@ export function NormalButton({text, hollow, moreStyles, onPress, inActive}) {
   }
 }
 
-export function GoogleButtonWithIcon({onPress}) {
+export function GoogleButtonWithIcon({onPress , position}) {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.GoogleButton}>
