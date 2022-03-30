@@ -14,7 +14,6 @@ import {useState, useContext} from 'react';
 import {UserContext, UserProvider} from './src/context/UserContext';
 
 export default function App() {
-  
   return (
     <UserProvider>
       <CategoryProvider>

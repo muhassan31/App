@@ -6,6 +6,10 @@ import {UserContext, UserProvider} from '../context/UserContext';
 import AppLoading from 'expo-app-loading';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import WelcomeStack from './WelcomeNavigator';
+// import { createAppContainer, createSwitchNavigator } from '@react-navigation';
+
+
+
 export default function RootNavigator() {
   const [user, setUser] = useContext(UserContext);
 
@@ -35,7 +39,7 @@ export default function RootNavigator() {
   }
   return (
     <NavigationContainer>
-      {user === null ? <OnboardingStack /> : <WelcomeStack />}
+      {(user == null  || user == undefined)? <OnboardingStack /> : <WelcomeStack />}
     </NavigationContainer>
   );
 }

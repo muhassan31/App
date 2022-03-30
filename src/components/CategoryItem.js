@@ -11,7 +11,7 @@ import {
 
 import {useCallback, useState, useContext, useEffect} from 'react';
 import {CategorieContext} from '../..//src/context/CategorieContext';
-function CategoryItem({content, position, onPress}) {
+function CategoryItem({content, position, onPress , width}) {
   const [categories, setCategories] = useContext(CategorieContext);
   const [enabled, setEnabled] = useState(false);
   const [size, onLayout] = useComponentSize();
@@ -42,8 +42,8 @@ function CategoryItem({content, position, onPress}) {
       <View
         style={
           enabled
-            ? {...styles.selectedContainer}
-            : {...styles.unSelectedContainer}
+            ? {...styles.selectedContainer , width:width, height:width}
+            : {...styles.unSelectedContainer ,  width:width, height:width}
         }
         onLayout={onLayout}>
         <Text style={styles.unselectedText}> {content} </Text>

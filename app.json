@@ -1,12 +1,13 @@
-
-   
 {
   "expo": {
     "name": "ApproachableNative",
     "slug": "ApproachableNative",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "packagerOpts": {
+      "config": "metro.config.js"
+    },
+    "icon": "./assets/appstore.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -15,11 +16,16 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.approachable.approachablenative",
+      "buildNumber": "1.0.2",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.724006010963-er1i8nf3hsoeibm6vg8m01au6gqq8bhb"
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {

@@ -13,30 +13,32 @@ import {HeaderText, RegularText, SmallerText} from '../../components/Texts';
 import LandingPage from '../Onboarding/LandingPage';
 import HowItWorks from './HowItWorks';
 import Animated, {set} from 'react-native-reanimated';
-import {useState, useEffect, useContext} from 'react';
+import {useState, useEffect, useContext, useRef} from 'react';
+import {writeUserData} from '../../../firebase';
 import CategoryItem from '../../components/CategoryItem';
 import {CategorieContext} from '../..//context/CategorieContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {UserContext, UserProvider} from '../../context/UserContext';
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 export default function Interests({navigation, route}) {
   var [user, setUser] = useContext(UserContext);
-  let {result} = route.params;
+  let {result, lastName, firstname} = route.params;
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
 
-  const handleSavingUser = async () => {
-    console.log('saving user...');
-    
-    AsyncStorage.setItem('user', JSON.stringify(result.user))
-      .then(() => {
-        console.log('user saved');
-        setUser(result.user);
-      })
-      .catch(err => {
-        //handle error with UI error
-        console.log('error saving user', err);
-        setUser(null);
-      });
-  };
+  const width = (Dimensions.get('window').width - 36) / 3.5;
   const CategorieArr = [
     'Self development',
     'Creativity',
@@ -71,6 +73,72 @@ export default function Interests({navigation, route}) {
       setButtonActive(false);
     }
   };
+
+  const handleSavingUser = async () => {
+    // save user interest and expo token to firebase as well
+    registerForPushNotificationsAsync().then(token => {
+      setExpoPushToken(token);
+      var finalId = '';
+      var name = '';
+      var finalResult = {};
+
+      if (result.type === 'apple') {
+        const {id} = result;
+        finalId = id.replaceAll('.', '')
+        console.log("finalId" , finalId)
+        
+        finalResult['id'] = finalId;
+        finalResult['familyName'] = lastName;
+        finalResult['givenName'] = firstname;
+        finalResult['expoPushToken'] = token;
+        finalResult['name'] = firstname + ' ' + lastName;
+        finalResult['appleId'] = id;
+        finalResult['signUpType'] = 'apple';
+        console.log(finalResult, 'apple');
+      } else {
+        finalResult = result.user;
+        finalResult['expoPushToken'] = token;
+        finalResult['signUpType'] = 'google';
+        console.log(finalResult, 'google');
+        finalId = finalResult.id;
+      }
+     
+      finalResult['interests'] = categories;
+
+      AsyncStorage.setItem('user', JSON.stringify(finalResult))
+        .then(() => {
+          console.log('user saved');
+          setUser(finalResult);
+          writeUserData(finalId, finalResult);
+        })
+        .catch(err => {
+          //handle error with UI error
+          console.log('error saving user', err);
+          setUser(null);
+        });
+    });
+  };
+  useEffect(() => {
+    // This listener is fired whenever a notification is received while the app is foregrounded
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener(notification => {
+        setNotification(notification);
+      });
+
+    // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener(response => {
+        console.log(response);
+      });
+
+    return () => {
+      Notifications.removeNotificationSubscription(
+        notificationListener.current,
+      );
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
+
   useEffect(() => {
     handleNextButton();
   }, [categories]);
@@ -81,7 +149,9 @@ export default function Interests({navigation, route}) {
         style={{
           marginHorizontal: 16,
           marginVertical: 10,
-          flex: 0.2,
+          // flex: 1,
+          // backgroundColor: 'red',
+          flexWrap: 'wrap',
         }}>
         <HeaderText content="What do you like?" />
         <SmallerText content="Select below to help us find the people and hangouts for you" />
@@ -96,28 +166,30 @@ export default function Interests({navigation, route}) {
           flexGrow: 1,
           marginBottom: 50,
           justifyContent: 'flex-end',
+          // backgroundColor: 'blue',
         }}>
-        <View style={{flexWrap: 'wrap', flexDirection: 'row'}}>
-          <ScrollView>
-            <View style={{flexWrap: 'wrap', flexDirection: 'row'}}>
-              {CategorieArr.map((person, index) => (
-                <CategoryItem
-                  content={person}
-                  // onPress={() => handlePressCategories(person)}
-                />
-              ))}
-            </View>
-          </ScrollView>
+        <ScrollView style={{marginBottom: -15}}>
+          <View style={{flexWrap: 'wrap', flexDirection: 'row'}}>
+            {CategorieArr.map((person, index) => (
+              <CategoryItem
+                content={person}
+                width={width}
+                // onPress={() => handlePressCategories(person)}
+              />
+            ))}
+          </View>
+        </ScrollView>
+      </View>
 
-          <NormalButton
-            text="Next"
-            onPress={
-              () => (buttonActive ? handleSavingUser() : null) //navigation.navigate('Sucess')
-            }
-            inActive={buttonActive}
-            moreStyles={{marginTop: 40}}
-          />
-        </View>
+      <View style={{marginBottom: 20, flex: 0.3, marginHorizontal: 16}}>
+        <NormalButton
+          text="Next"
+          onPress={
+            () => (buttonActive ? handleSavingUser() : null) //navigation.navigate('Sucess')
+          }
+          inActive={buttonActive}
+          moreStyles={{marginTop: 40}}
+        />
       </View>
     </View>
   );
@@ -151,3 +223,34 @@ const styles = StyleSheet.create({
     marginVertical: 4,
   },
 });
+
+async function registerForPushNotificationsAsync() {
+  let token;
+  if (Device.isDevice) {
+    const {status: existingStatus} = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const {status} = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!');
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log(token);
+  } else {
+    alert('Must use physical device for Push Notifications');
+  }
+
+  if (Platform.OS === 'android') {
+    Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
+  }
+
+  return token;
+}

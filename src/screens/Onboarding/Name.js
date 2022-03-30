@@ -1,4 +1,4 @@
-import React, {useState , useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {View, Text, StyleSheet, TextInput} from 'react-native';
 import {NormalButton} from '../../components/Buttons';
 import AppLoading from 'expo-app-loading';
@@ -9,36 +9,54 @@ import {
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
 
-export default function Name({route ,navigation}) {
+export default function Name({route, navigation}) {
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_700Bold,
   });
-  let  { result, familyName , givenName } = route.params
-// tells me how many renders i am having.. fix this later with useMemo
+
+  let {type} = route.params;
+
+  let {result, familyName, givenName} = route.params;
+
+  if (type === 'apple') {
+    familyName = familyName || '';
+    givenName = givenName || '';
+  }
   const [firstname, setFirstName] = useState(givenName);
   const [lastName, setLastName] = useState(familyName);
   const [buttonActive, setButtonActive] = useState(false);
+  // tells me how many renders i am having.. fix this later with useMemo
+
+  console.log(result);
   function checkTextInputs() {
-    if (firstname != '' && lastName != '') {
-      setButtonActive(true);
-    } else {
+    console.log('firstname lenght', firstname.length);
+    if (firstname.length <= 1) {
       setButtonActive(false);
+    } else {
+      setButtonActive(true);
     }
   }
   useEffect(() => {
     updateFirstNameandCheckTextInputs(givenName);
     updateLastNameandCheckTextInputs(familyName);
-  }, [])
+  }, []);
   function updateFirstNameandCheckTextInputs(name) {
     givenName = name;
+    setFirstName(prev => {
+      prev = name;
+
+      console.log(name);
+      console.log(firstname);
+      checkTextInputs();
+    });
     setFirstName(name);
-    checkTextInputs();
   }
   function updateLastNameandCheckTextInputs(name) {
     familyName = name;
-    setLastName( name);
-    checkTextInputs();
+
+    setLastName(name);
+    // checkTextInputs();
   }
   return (
     <View style={styles.container}>
@@ -54,16 +72,15 @@ export default function Name({route ,navigation}) {
           What's your name?
         </Text>
         <NormalTextField
-          value = {firstname}
-          placeholder="Add first Name"
+          value={firstname}
+          placeholder="Add first Name(Required)"
           onChangeText={text => updateFirstNameandCheckTextInputs(text)}
-          onDelete={() => console.log("deleting")}
+          onDelete={() => console.log('deletikkkdfng')}
         />
         <NormalTextField
           placeholder="Add last Name"
-          value = {lastName}
+          value={lastName}
           onChangeText={text => updateLastNameandCheckTextInputs(text)}
-        
         />
       </View>
 
@@ -75,7 +92,15 @@ export default function Name({route ,navigation}) {
         }}>
         <NormalButton
           text="Next"
-          onPress={() =>  buttonActive ? navigation.navigate('Interests' ,  {result , familyName, givenName}) : null}
+          onPress={() =>
+            buttonActive
+              ? navigation.navigate('Interests', {
+                  result,
+                  lastName,
+                  firstname,
+                })
+              : null
+          }
           inActive={buttonActive}
         />
       </View>
@@ -109,18 +134,20 @@ const styles = StyleSheet.create({
   },
 });
 
-function NormalTextField({placeholder, onChangeText, onDelete , value}) {
+function NormalTextField({placeholder, onChangeText, onDelete, value}) {
+  var ref = useRef('null');
   return (
     <View style={styles.textInputView}>
       <TextInput
-        value = {value}
+        ref={ref}
+        value={value}
         style={styles.textInput}
         placeholder={placeholder}
         onChangeText={onChangeText}
         paddingStyle={styles.paddingStyle}
-        // onKeyPress={({nativeEvent}) => {
-        //   nativeEvent.key === 'Backspace' ?  onDelete : null;
-        // }}
+        onKeyPress={e => {
+          e.nativeEvent.key === 'Backspace' ? null : null;
+        }}
       />
     </View>
   );
