@@ -1,4 +1,4 @@
-import React, {useContext , useState , useEffect , useRef} from 'react';
+import React, {useContext, useState, useEffect, useRef} from 'react';
 import {View, Text, StyleSheet, Alert, Platform} from 'react-native';
 import {HeaderText, RegularText, SmallerText} from '../../components/Texts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -9,7 +9,6 @@ import {deleteUserData} from '../../../firebase';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 
-
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -18,36 +17,35 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function Sucess() {
-  const [user, setUser] = useContext(UserContext);
+export default function Sucess({navigation}) {
+  // const [user, setUser] = useContext(UserContext);
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
 
-
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
     // This listener is fired whenever a notification is received while the app is foregrounded
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
-    });
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener(notification => {
+        setNotification(notification);
+      });
 
     // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
-    });
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener(response => {
+        console.log(response);
+      });
 
     return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(
+        notificationListener.current,
+      );
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
-
-
-
-
 
   console.log(user);
   const buttonActive = true;
@@ -61,6 +59,7 @@ export default function Sucess() {
       console.log(exception);
     }
   }
+  const user =  AsyncStorage.getItem('user');
 
   if (user !== undefined && user !== null) {
     return (
@@ -89,10 +88,18 @@ export default function Sucess() {
             <SucessLogo witdth="100%" />
           </View>
 
-          <View style={{flex: 0.3, marginBottom: 20}}>
+          <View style={{flex: 0.3, marginBottom: 40}}>
+            {/* <NormalButton
+              text="Delete yourself!"
+              onPress={() => (buttonActive ? removeItemValue('user') : null)} //clode app
+              inActive={true}
+              hollow
+            /> */}
             <NormalButton
-              text="Remove User"
-              onPress={() => (buttonActive ?   removeItemValue('user') : null)} //clode app
+              text="Go to Explore"
+              onPress={() =>
+                buttonActive ? navigation.navigate('Explore') : null
+              } //clode app
               inActive={true}
               hollow
             />
@@ -146,7 +153,7 @@ async function sendPushNotification(expoPushToken) {
     sound: 'default',
     title: 'Hi there,',
     body: 'Welcome to Approachable',
-    data: { someData: 'goes here' },
+    data: {someData: 'goes here'},
   };
 
   await fetch('https://exp.host/--/api/v2/push/send', {
@@ -163,10 +170,10 @@ async function sendPushNotification(expoPushToken) {
 async function registerForPushNotificationsAsync() {
   let token;
   if (Device.isDevice) {
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    const {status: existingStatus} = await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
     if (existingStatus !== 'granted') {
-      const { status } = await Notifications.requestPermissionsAsync();
+      const {status} = await Notifications.requestPermissionsAsync();
       finalStatus = status;
     }
     if (finalStatus !== 'granted') {

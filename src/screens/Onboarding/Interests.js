@@ -21,6 +21,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {UserContext, UserProvider} from '../../context/UserContext';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
+import {useDispatch} from 'react-redux';
+import {login} from '../../redux/actions';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -37,6 +39,7 @@ export default function Interests({navigation, route}) {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
+  const dispatch = useDispatch();
 
   const width = (Dimensions.get('window').width - 36) / 3.5;
   const CategorieArr = [
@@ -84,9 +87,9 @@ export default function Interests({navigation, route}) {
 
       if (result.type === 'apple') {
         const {id} = result;
-        finalId = id.replaceAll('.', '')
-        console.log("finalId" , finalId)
-        
+        finalId = id.replaceAll('.', '');
+        console.log('finalId', finalId);
+
         finalResult['id'] = finalId;
         finalResult['familyName'] = lastName;
         finalResult['givenName'] = firstname;
@@ -102,20 +105,22 @@ export default function Interests({navigation, route}) {
         console.log(finalResult, 'google');
         finalId = finalResult.id;
       }
-     
+
       finalResult['interests'] = categories;
 
-      AsyncStorage.setItem('user', JSON.stringify(finalResult))
-        .then(() => {
-          console.log('user saved');
-          setUser(finalResult);
-          writeUserData(finalId, finalResult);
-        })
-        .catch(err => {
-          //handle error with UI error
-          console.log('error saving user', err);
-          setUser(null);
-        });
+      dispatch(login(finalResult));
+
+      // AsyncStorage.setItem('user', JSON.stringify(finalResult))
+      //   .then(() => {
+      //     console.log('user saved');
+      //     setUser(finalResult);
+      //     writeUserData(finalId, finalResult);
+      //   })
+      //   .catch(err => {
+      //     //handle error with UI error
+      //     console.log('error saving user', err);
+      //     setUser(null);
+      //   });
     });
   };
   useEffect(() => {

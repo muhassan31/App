@@ -2,7 +2,7 @@
   "expo": {
     "name": "ApproachableNative",
     "slug": "ApproachableNative",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "packagerOpts": {
       "config": "metro.config.js"
@@ -18,9 +18,10 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "usesAppleSignIn": true,
       "supportsTablet": true,
       "bundleIdentifier": "com.approachable.approachablenative",
-      "buildNumber": "1.0.2",
+      "buildNumber": "1.0.3",
       "config": {
         "googleSignIn": {
           "reservedClientId": "com.googleusercontent.apps.724006010963-er1i8nf3hsoeibm6vg8m01au6gqq8bhb"

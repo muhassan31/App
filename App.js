@@ -12,20 +12,23 @@ import AppLoading from 'expo-app-loading';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useState, useContext} from 'react';
 import {UserContext, UserProvider} from './src/context/UserContext';
-
+import {Provider, useSelector} from 'react-redux';
+import {store} from './src/redux/index';
 export default function App() {
   return (
-    <UserProvider>
-      <CategoryProvider>
-        <SafeAreaProvider>
-          <SafeAreaView style={styles.container}>
-            <View style={{...styles.container}}>
-              <RootNavigator />
-            </View>
-          </SafeAreaView>
-        </SafeAreaProvider>
-      </CategoryProvider>
-    </UserProvider>
+    <Provider store={store}>
+      <UserProvider>
+        <CategoryProvider>
+          <SafeAreaProvider>
+            <SafeAreaView style={styles.container}>
+              <View style={{...styles.container}}>
+                <RootNavigator />
+              </View>
+            </SafeAreaView>
+          </SafeAreaProvider>
+        </CategoryProvider>
+      </UserProvider>
+    </Provider>
   );
 }
 

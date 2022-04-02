@@ -15,6 +15,14 @@ function RegularText({content, moreStyles}) {
   );
 }
 
+function RegularBoldText({content, moreStyles}) {
+  return (
+    <View>
+      <Text style={{...styles.regularBold, ...moreStyles}}>{content}</Text>
+    </View>
+  );
+}
+
 function SmallerText({content, moreStyles}) {
   return (
     <View>
@@ -23,7 +31,7 @@ function SmallerText({content, moreStyles}) {
   );
 }
 
-export {RegularText, HeaderText , SmallerText};
+export {RegularText, HeaderText, SmallerText, RegularBoldText};
 
 const styles = StyleSheet.create({
   heading: {
@@ -45,11 +53,22 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     fontFamily: 'Poppins_400Regular',
     marginBottom: 32,
-    marginVertical:4,
+    marginVertical: 4,
+  },
+
+  regularBold: {
+    color: '#030E01',
+    textAlign: 'left',
+    fontWeight: 'bold',
+    fontSize: 16,
+    lineHeight: 24,
+    fontFamily: 'Poppins_400Regular',
+    marginBottom: 32,
+    marginVertical: 4,
+    fontStyle: 'normal',
   },
 
   small: {
-
     color: '#696969',
     textAlign: 'left',
     fontWeight: 'normal',
@@ -57,8 +76,6 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     fontFamily: 'Poppins_400Regular',
     marginBottom: 32,
-    marginVertical:4,
-
-
+    marginVertical: 4,
   },
 });
