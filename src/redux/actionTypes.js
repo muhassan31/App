@@ -1,0 +1,6 @@
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
+export const LOGIN_LOADING = 'LOGIN_LOADING';
+
+export const OPEN_CREATE_POST_NAV = 'OPEN_CREATE_POST_NAV';
+export const CLOSE_CREATE_POST_NAV = 'CLOSE_CREATE_POST_NAV';
