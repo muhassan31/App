@@ -5,7 +5,7 @@ import {
   CLOSE_CREATE_POST_NAV,
 } from './actionTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { deleteUserData } from '../../firebase';
 export const Init = () => {
   console.log('Initing user....');
   return async dispatch => {
@@ -38,6 +38,7 @@ export const Init = () => {
 export const login = data => {
   return async dispatch => {
     try {
+     
       await AsyncStorage.setItem('user', JSON.stringify(data));
       dispatch({
         type: LOGIN,
@@ -52,9 +53,21 @@ export const login = data => {
 };
 
 export const logout = () => {
-  return {
-    type: LOGOUT,
-    payload: null,
+  return async dispatch => {
+    try {
+      var user = await AsyncStorage.getItem('user');
+      user = JSON.parse(user);
+      await AsyncStorage.removeItem('user');
+      deleteUserData(user.id);
+      dispatch({
+        type: LOGOUT,
+        payload: {
+          id: null,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
 

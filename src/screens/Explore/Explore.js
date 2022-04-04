@@ -9,7 +9,7 @@ import {NavigateToCreate} from '../../redux/actions';
 import Post from '../../components/Utility/Post';
 import AppHeader from '../../components/Utility/AppHeader';
 function Explore() {
-  const postCount = 1;
+  const postCount = 0;
   const Postdata = {
     userName: 'Linda',
     title: "Linda's Hangout",
@@ -83,18 +83,20 @@ function NoPost() {
 
   return (
     <View style={styles.container}>
+     <AppHeader moreStyles={{flex:0.14}} />
       <View
         style={{
           //height: 300,
-          marginTop: 100,
+          marginTop: 90,
           marginHorizontal: 16,
-
+          justifyContent: 'center', 
+          
           flex: 1,
           alignItems: 'center',
         }}>
         <EmptyCreatePost witdth="100%" />
       </View>
-      <View style={{flex: 1}}>
+      <View style={{flex: 0.8 ,}}>
         <RegularBoldText
           content="No hangouts yet? Be the first to post!"
           moreStyles={{textAlign: 'center'}}

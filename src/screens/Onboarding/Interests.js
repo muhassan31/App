@@ -179,7 +179,7 @@ export default function Interests({navigation, route}) {
               <CategoryItem
                 content={person}
                 width={width}
-                // onPress={() => handlePressCategories(person)}
+                onPress={() => handlePressCategories(person)}
               />
             ))}
           </View>

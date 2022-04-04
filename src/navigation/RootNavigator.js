@@ -12,6 +12,7 @@ import {store} from '../redux/index';
 import {useDispatch} from 'react-redux';
 import {Init, login} from '../redux/actions';
 import CreateStack from './CreateNavigator';
+import BottomTabNavigator from './BottomTabNavigator';
 import {
   View,
   Text,
@@ -43,7 +44,7 @@ function AppNavigator() {
 
   return (
     <NavigationContainer>
-      {create === true ? <CreateStack /> : <WelcomeStack />}
+      {create === true ? <CreateStack /> : <BottomTabNavigator />} 
     </NavigationContainer>
   );
 }
@@ -63,7 +64,7 @@ export default function RootNavigator() {
   // var userToken = useSelector(state => state.AuthReducer.userToken);
 
   var userToken = useSelector(state => state.AuthReducer.userId);
-
+  // userToken = null
   console.log('user', userToken);
 
   const dispatch = useDispatch();

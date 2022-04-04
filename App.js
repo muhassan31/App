@@ -20,7 +20,7 @@ export default function App() {
     <Provider store={store}>
       <UserProvider>
         <CategoryProvider>
-          <MyStatusBar backgroundColor="#F6F6F6" />
+          <MyStatusBar backgroundColor="white" />
           <SafeAreaProvider>
             <SafeAreaView style={styles.container}>
               <View style={{...styles.container}}>

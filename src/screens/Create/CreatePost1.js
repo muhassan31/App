@@ -5,7 +5,7 @@ import {NaviagteOutOfCreate} from '../../redux/actions';
 import {useDispatch} from 'react-redux';
 import {HeaderText, RegularText, RegularBoldText} from '../../components/Texts';
 import {NormalTextField} from '../../components/TextField';
-
+import AppHeader from '../../components/Utility/AppHeader';
 export default function CreatePost1({navigation}) {
   const dispatch = useDispatch();
 
@@ -18,6 +18,7 @@ export default function CreatePost1({navigation}) {
 
   return (
     <View style={styles.container}>
+     <AppHeader moreStyles = {{ flex:0.1}} />
       <View style={{marginHorizontal: 16, flex: 0.5, marginTop: 40}}>
         <HeaderText content="What do you want to do right now?" />
         <RegularBoldText content="Headline" />

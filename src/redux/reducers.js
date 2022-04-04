@@ -19,7 +19,7 @@ export function AuthReducer(state = authInitialState, action) {
     case LOGOUT:
       return {
         ...state,
-        userToken: null,
+        userId: null,
       };
 
     default:
