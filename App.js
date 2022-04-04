@@ -14,11 +14,13 @@ import {useState, useContext} from 'react';
 import {UserContext, UserProvider} from './src/context/UserContext';
 import {Provider, useSelector} from 'react-redux';
 import {store} from './src/redux/index';
+
 export default function App() {
   return (
     <Provider store={store}>
       <UserProvider>
         <CategoryProvider>
+          <MyStatusBar backgroundColor="#F6F6F6" />
           <SafeAreaProvider>
             <SafeAreaView style={styles.container}>
               <View style={{...styles.container}}>
@@ -32,8 +34,30 @@ export default function App() {
   );
 }
 
+const MyStatusBar = ({backgroundColor, ...props}) => (
+  <View style={[styles.statusBar, {backgroundColor}]}>
+    <SafeAreaView>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </SafeAreaView>
+  </View>
+);
+
+const STATUSBAR_HEIGHT = StatusBar.currentHeight;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  statusBar: {
+    height: STATUSBAR_HEIGHT,
+  },
+  container: {
+    flex: 1,
+  },
 });
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//   },
+// });
